@@ -194,7 +194,7 @@ def calculator_mode(cam):
 							Thread(target=say_text, args=(info,)).start()
 							operator = ''
 					elif flag['second'] == False:
-						if count_same_frames > 15:
+						if count_same_frames > 5:
 							Thread(target=say_text, args=(pred_text,)).start()
 							second += pred_text
 							calc_text += pred_text
@@ -253,7 +253,7 @@ def text_mode(cam):
 				else:
 					count_same_frame = 0
 
-				if count_same_frame > 20:
+				if count_same_frame > 10:
 					if len(text) == 1:
 						Thread(target=say_text, args=(text, )).start()
 					word = word + text
@@ -266,14 +266,14 @@ def text_mode(cam):
 			elif cv2.contourArea(contour) < 1000:
 				if word != '':
 					#print('yolo')
-					#say_text(text)
+					say_text(text)
 					Thread(target=say_text, args=(word, )).start()
 				text = ""
 				word = ""
 		else:
 			if word != '':
 				#print('yolo1')
-				#say_text(text)
+				say_text(text)
 				Thread(target=say_text, args=(word, )).start()
 			text = ""
 			word = ""

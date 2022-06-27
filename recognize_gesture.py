@@ -5,9 +5,10 @@ from cnn_tf import cnn_model_fn
 import os
 import sqlite3
 from keras.models import load_model
+import time
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-tf.logging.set_verbosity(tf.logging.ERROR)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 classifier = tf.estimator.Estimator(model_dir="tmp/cnn_model2", model_fn=cnn_model_fn)
 prediction = None
 model = load_model('cnn_model_keras2.h5')
@@ -118,7 +119,6 @@ def recognize():
 			if cv2.contourArea(contour) > 10000:
 				x1, y1, w1, h1 = cv2.boundingRect(contour)
 				save_img = thresh[y1:y1+h1, x1:x1+w1]
-				
 				if w1 > h1:
 					save_img = cv2.copyMakeBorder(save_img, int((w1-h1)/2) , int((w1-h1)/2) , 0, 0, cv2.BORDER_CONSTANT, (0, 0, 0))
 				elif h1 > w1:
